@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_e_shop/constants/theme.dart';
+import 'package:flutter_e_shop/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:flutter_e_shop/firebase_options.dart';
 import 'package:flutter_e_shop/screens/auth_ui/welcome/welcome.dart';
+import 'package:flutter_e_shop/screens/home/home.dart';
 
 void main() async{
 WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +23,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Youtube E-Commerce',
       theme: themeData,
-      home: Welcome(),
+      home: StreamBuilder(
+        stream: FirebaseAuthHelper.instance.getAuthChange,
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            return Home();
+          }
+          return Welcome();
+        },
+      )
     );
   }
 }

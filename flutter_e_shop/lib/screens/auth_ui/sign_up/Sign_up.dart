@@ -5,6 +5,9 @@ import 'package:flutter_e_shop/screens/home/home.dart';
 import 'package:flutter_e_shop/widgets/primary_button/primary_button.dart';
 import 'package:flutter_e_shop/widgets/top_titles/top_titles.dart';
 
+import '../../../constants/constant.dart';
+import '../../../firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -14,6 +17,11 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool isShowPassword = true;
+
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController phone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +37,7 @@ class _SignUpState extends State<SignUp> {
                 height: 46,
               ),
               TextFormField(
+                controller: name,
                 decoration: InputDecoration(
                   hintText: 'Name',
                   prefixIcon: Icon(Icons.person_2_outlined),
@@ -38,6 +47,7 @@ class _SignUpState extends State<SignUp> {
                 height: 12,
               ),
               TextFormField(
+                controller: email,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'E-mail',
@@ -48,6 +58,7 @@ class _SignUpState extends State<SignUp> {
                 height: 12,
               ),
               TextFormField(
+                controller: phone,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Phone',
@@ -58,6 +69,7 @@ class _SignUpState extends State<SignUp> {
                 height: 12,
               ),
               TextFormField(
+                controller: password,
                 obscureText: isShowPassword,
                 decoration: InputDecoration(
                   hintText: 'Password',
@@ -81,8 +93,15 @@ class _SignUpState extends State<SignUp> {
               ),
               PrimaryButton(
                 title: 'Create an account',
-                onPressed: () {
-                  Routes.instance.pushAndRemoveUntil(widget: Home(), context: context);
+                onPressed: () async{
+                  bool isValidate = signUpValidation(email.text, password.text,name.text,phone.text);
+                  if (isValidate) {
+                    bool isLogined = await FirebaseAuthHelper.instance
+                        .signUp(email.text, password.text, context);
+                        if(isLogined){
+                          Routes.instance.pushAndRemoveUntil(widget: Home(), context: context);
+                        }
+                  }
                 },
               ),
               SizedBox(

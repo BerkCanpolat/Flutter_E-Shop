@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_e_shop/constants/asset_images.dart';
 import 'package:flutter_e_shop/constants/routes.dart';
 import 'package:flutter_e_shop/screens/auth_ui/login/login.dart';
+import 'package:flutter_e_shop/screens/auth_ui/sign_up/Sign_up.dart';
 import 'package:flutter_e_shop/widgets/primary_button/primary_button.dart';
 import 'package:flutter_e_shop/widgets/top_titles/top_titles.dart';
 
@@ -55,7 +56,9 @@ class Welcome extends StatelessWidget {
             SizedBox(
               height: 18,
             ),
-            PrimaryButton(title: "Sign Up", onPressed: () {}),
+            PrimaryButton(title: "Sign Up", onPressed: () {
+              Routes.instance.push(widget: SignUp(), context: context);
+            }),
           ],
         ),
       ),

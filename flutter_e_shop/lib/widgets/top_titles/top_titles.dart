@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TopTitles extends StatelessWidget {
@@ -12,6 +13,13 @@ class TopTitles extends StatelessWidget {
         SizedBox(
           height: kToolbarHeight + 12,
         ),
+        if(title == 'Login' || title == 'Create Account')
+        GestureDetector(
+          onTap: (){
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back_ios)),
+        SizedBox(height: 12,),
         Text(
           title,
           style: TextStyle(

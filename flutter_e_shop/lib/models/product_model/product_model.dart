@@ -15,13 +15,13 @@ class ProductModel {
         required this.isFavourite,
     });
 
-    String image;
-    String id;
-    bool isFavourite;
-    String name;
-    String price;
-    String description;
-    String status;
+    String? image;
+    String? id;
+    bool? isFavourite;
+    String? name;
+    double? price;
+    String? description;
+    String? status;
 
     factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"],
@@ -29,7 +29,7 @@ class ProductModel {
         description: json["description"],
         image: json["image"],
         isFavourite: false,
-        price: json["price"],
+        price: double.parse(json['price'].toString()),
         status: json["status"],
     );
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_e_shop/constants/routes.dart';
 import 'package:flutter_e_shop/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:flutter_e_shop/models/category_model/category_model.dart';
 import 'package:flutter_e_shop/models/product_model/product_model.dart';
+import 'package:flutter_e_shop/screens/product_details/product_details.dart';
 import 'package:flutter_e_shop/widgets/top_titles/top_titles.dart';
 
 class Home extends StatefulWidget {
@@ -159,7 +161,9 @@ class _HomeState extends State<Home> {
                                       height: 45,
                                       width: 140,
                                       child: OutlinedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Routes.instance.push(widget: ProductDetails(singleProduct: singleProduct), context: context);
+                                        },
                                         child: Text("Buy"),
                                       ),
                                     ),
@@ -168,7 +172,8 @@ class _HomeState extends State<Home> {
                               );
                             },
                           ),
-                        )
+                        ),
+                        SizedBox(height: 12),
                 ],
               ),
             ),

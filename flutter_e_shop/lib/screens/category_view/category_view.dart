@@ -1,41 +1,40 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_e_shop/constants/routes.dart';
 import 'package:flutter_e_shop/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:flutter_e_shop/models/category_model/category_model.dart';
 import 'package:flutter_e_shop/models/product_model/product_model.dart';
-import 'package:flutter_e_shop/screens/category_view/category_view.dart';
 import 'package:flutter_e_shop/screens/product_details/product_details.dart';
-import 'package:flutter_e_shop/widgets/top_titles/top_titles.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+import '../../widgets/top_titles/top_titles.dart';
+
+class CategoryView extends StatefulWidget {
+  final CategoryModel categoryModel;
+  const CategoryView({super.key, required this.categoryModel});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<CategoryView> createState() => _CategoryViewState();
 }
 
-class _HomeState extends State<Home> {
-  List<CategoryModel> categoriesList = [];
+class _CategoryViewState extends State<CategoryView> {
   List<ProductModel> productModelList = [];
   bool isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    getCategoryList();
-  }
 
   void getCategoryList() async {
     setState(() {
       isLoading = true;
     });
-    categoriesList = await FirebaseFirestoreHelper.instance.getCategories();
-    productModelList = await FirebaseFirestoreHelper.instance.getBestProducts();
+    productModelList = await FirebaseFirestoreHelper.instance
+        .getCategoryViewProduct(widget.categoryModel.id!);
     productModelList.shuffle();
     setState(() {
       isLoading = false;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCategoryList();
   }
 
   @override
@@ -51,73 +50,22 @@ class _HomeState extends State<Home> {
               ),
             )
           : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TopTitles(subtitle: "", title: "E Commerce"),
-                        TextFormField(
-                          decoration: InputDecoration(hintText: "Search...."),
+                  SizedBox(height: kToolbarHeight-30,),
+                  Padding(padding: EdgeInsets.all(12)),
+                  Row(
+                    children: [
+                      BackButton(),
+                      Text(
+                        widget.categoryModel.name!,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        Text(
-                          "Categories",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                  categoriesList.isEmpty
-                      ? Center(
-                          child: Text("Categories is Empty"),
-                        )
-                      : SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: categoriesList
-                                .map(
-                                  (e) => Padding(
-                                    padding: const EdgeInsets.only(left: 8),
-                                    child: CupertinoButton(
-                                      padding: EdgeInsets.zero,
-                                      onPressed: (){
-                                        Routes.instance.push(widget: CategoryView(categoryModel: e), context: context);
-                                      },
-                                      child: Card(
-                                        color: Colors.white,
-                                        elevation: 3.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        child: Container(
-                                          height: 100,
-                                          width: 100,
-                                          child: Image.network(e.image!),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12, left: 12),
-                    child: Text(
-                      "Best Products",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 12,
+                      )
+                    ],
                   ),
                   productModelList.isEmpty
                       ? Center(
@@ -170,7 +118,10 @@ class _HomeState extends State<Home> {
                                       width: 140,
                                       child: OutlinedButton(
                                         onPressed: () {
-                                          Routes.instance.push(widget: ProductDetails(singleProduct: singleProduct), context: context);
+                                          Routes.instance.push(
+                                              widget: ProductDetails(
+                                                  singleProduct: singleProduct),
+                                              context: context);
                                         },
                                         child: Text("Buy"),
                                       ),
@@ -181,12 +132,12 @@ class _HomeState extends State<Home> {
                             },
                           ),
                         ),
-                        SizedBox(
-                          height: 12,
-                          ),
+                  SizedBox(
+                    height: 12,
+                  ),
                 ],
               ),
-            ),
+          ),
     );
   }
 }

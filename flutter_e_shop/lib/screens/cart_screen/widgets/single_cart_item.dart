@@ -22,11 +22,15 @@ class _SingleCartItemsState extends State<SingleCartItems> {
   void initState() {
     super.initState();
     setState(() {
-    qty = widget.singleProduct.qty??1;
+      qty = widget.singleProduct.qty ?? 1;
     });
   }
+
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(
+      context,
+    );
     return Container(
       margin: EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -101,9 +105,23 @@ class _SingleCartItemsState extends State<SingleCartItems> {
                             ),
                             CupertinoButton(
                               padding: EdgeInsets.zero,
-                              onPressed: () {},
+                              onPressed: () {
+                                if (!appProvider.getFavouriteProductList
+                                        .contains(widget.singleProduct)) {
+                                  appProvider.addFavouriteProduct(
+                                      widget.singleProduct);
+                                      showMessage("Added to wishlist");
+                                } else {
+                                  appProvider.removeFavouriteProduct(
+                                      widget.singleProduct);
+                                      showMessage("Removed to wishlist");
+                                }
+                              },
                               child: Text(
-                                "Add to wishlist",
+                                appProvider.getFavouriteProductList
+                                        .contains(widget.singleProduct)
+                                    ? "Remove to wishlist"
+                                    : "Add to wishlist",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold),
                               ),
@@ -120,9 +138,8 @@ class _SingleCartItemsState extends State<SingleCartItems> {
                     CupertinoButton(
                       padding: EdgeInsets.zero,
                       onPressed: () {
-                    AppProvider appProvider = Provider.of<AppProvider>(context,listen: false);
-                    appProvider.removeCardProduct(widget.singleProduct);
-                    showMessage("Removed from Card");
+                        appProvider.removeCardProduct(widget.singleProduct);
+                        showMessage("Removed from Card");
                       },
                       child: CircleAvatar(
                         maxRadius: 13,

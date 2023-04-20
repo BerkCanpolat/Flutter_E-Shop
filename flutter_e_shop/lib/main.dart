@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_e_shop/constants/theme.dart';
 import 'package:flutter_e_shop/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:flutter_e_shop/firebase_options.dart';
+import 'package:flutter_e_shop/provider/app_provider.dart';
 import 'package:flutter_e_shop/screens/auth_ui/welcome/welcome.dart';
 import 'package:flutter_e_shop/screens/home/home.dart';
+import 'package:provider/provider.dart';
 
 void main() async{
 WidgetsFlutterBinding.ensureInitialized();
@@ -19,19 +21,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Youtube E-Commerce',
-      theme: themeData,
-      home: StreamBuilder(
-        stream: FirebaseAuthHelper.instance.getAuthChange,
-        builder: (context, snapshot) {
-          if(snapshot.hasData){
-            return Home();
-          }
-          return Welcome();
-        },
-      )
+    return ChangeNotifierProvider(
+      create: (context) => AppProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Youtube E-Commerce',
+        theme: themeData,
+        home: StreamBuilder(
+          stream: FirebaseAuthHelper.instance.getAuthChange,
+          builder: (context, snapshot) {
+            if(snapshot.hasData){
+              return Home();
+            }
+            return Welcome();
+          },
+        )
+      ),
     );
   }
 }

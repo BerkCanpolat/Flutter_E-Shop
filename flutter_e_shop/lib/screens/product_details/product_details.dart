@@ -5,6 +5,7 @@ import 'package:flutter_e_shop/constants/routes.dart';
 import 'package:flutter_e_shop/models/product_model/product_model.dart';
 import 'package:flutter_e_shop/provider/app_provider.dart';
 import 'package:flutter_e_shop/screens/cart_screen/cart_screen.dart';
+import 'package:flutter_e_shop/screens/favourite_screen/favourite_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -21,6 +22,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(context,);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -50,8 +52,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                     setState(() {
                       widget.singleProduct.isFavourite =  !widget.singleProduct.isFavourite!;
                     });
+                    if(widget.singleProduct.isFavourite!){
+                      appProvider.addFavouriteProduct(widget.singleProduct);
+                    }else{
+                      appProvider.removeFavouriteProduct(widget.singleProduct);
+                    }
                   }, 
-                  icon: Icon(widget.singleProduct.isFavourite!
+                  icon: Icon(appProvider.getFavouriteProductList.contains(widget.singleProduct)
                   ? Icons.favorite
                   :  Icons.favorite_border
                     ),
@@ -97,7 +104,6 @@ class _ProductDetailsState extends State<ProductDetails> {
               children: [
                 OutlinedButton(
                   onPressed: (){
-                    AppProvider appProvider = Provider.of<AppProvider>(context,listen: false);
                     ProductModel productModel = widget.singleProduct.copyWith(qty: qty);
                     appProvider.addCardProduct(productModel);
                     showMessage("Added to Cart");
@@ -109,13 +115,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                   height: 38,
                   width: 140,
                   child: ElevatedButton(
-                    onPressed: (){}, 
+                    onPressed: (){
+                      Routes.instance.push(widget: FavouriteScreen(), context: context);
+                    }, 
                     child: Text("BUY"),
                     ),
                 ),
               ],
             ),
-            SizedBox(height: 24,),
+            SizedBox(height: 54,),
           ],
         ),
       ),

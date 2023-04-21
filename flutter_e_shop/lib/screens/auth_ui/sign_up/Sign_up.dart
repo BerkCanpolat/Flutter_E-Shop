@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_e_shop/constants/routes.dart';
+import 'package:flutter_e_shop/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:flutter_e_shop/screens/home/home.dart';
 import 'package:flutter_e_shop/widgets/primary_button/primary_button.dart';
 import 'package:flutter_e_shop/widgets/top_titles/top_titles.dart';
@@ -97,9 +98,9 @@ class _SignUpState extends State<SignUp> {
                   bool isValidate = signUpValidation(email.text, password.text,name.text,phone.text);
                   if (isValidate) {
                     bool isLogined = await FirebaseAuthHelper.instance
-                        .signUp(email.text, password.text, context);
+                        .signUp(name.text,email.text, password.text, context);
                         if(isLogined){
-                          Routes.instance.pushAndRemoveUntil(widget: Home(), context: context);
+                          Routes.instance.pushAndRemoveUntil(widget: CustomBottomBar(), context: context);
                         }
                   }
                 },

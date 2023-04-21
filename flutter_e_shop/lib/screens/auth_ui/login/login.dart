@@ -4,6 +4,7 @@ import 'package:flutter_e_shop/constants/constant.dart';
 import 'package:flutter_e_shop/constants/routes.dart';
 import 'package:flutter_e_shop/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:flutter_e_shop/screens/auth_ui/sign_up/Sign_up.dart';
+import 'package:flutter_e_shop/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:flutter_e_shop/screens/home/home.dart';
 import 'package:flutter_e_shop/widgets/primary_button/primary_button.dart';
 import 'package:flutter_e_shop/widgets/top_titles/top_titles.dart';
@@ -76,7 +77,7 @@ class _LoginState extends State<Login> {
                     bool isLogined = await FirebaseAuthHelper.instance
                         .login(email.text, password.text, context);
                         if(isLogined){
-                          Routes.instance.pushAndRemoveUntil(widget: Home(), context: context);
+                          Routes.instance.pushAndRemoveUntil(widget: CustomBottomBar(), context: context);
                         }
                   }
                 },

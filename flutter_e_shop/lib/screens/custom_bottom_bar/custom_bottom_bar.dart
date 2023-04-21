@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_e_shop/screens/account_screen/account_screens.dart';
 import 'package:flutter_e_shop/screens/cart_screen/cart_screen.dart';
 import 'package:flutter_e_shop/screens/favourite_screen/favourite_screen.dart';
 import 'package:flutter_e_shop/screens/home/home.dart';
@@ -22,7 +23,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         Home(),
         CartScreen(),
         FavouriteScreen(),
-        FavouriteScreen(),
+        AccountScreen(),
       ];
 
   List<PersistentBottomNavBarItem> _navBarsItems() => [
@@ -49,6 +50,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.person),
+          inactiveIcon: Icon(Icons.person_2_outlined),
           title: "Profile",
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: Colors.white,

@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_e_shop/models/product_model/product_model.dart';
+
 UserModel userModelFromJson(String str) =>
     UserModel.fromJson(json.decode(str));
 
@@ -31,4 +34,14 @@ class UserModel {
         "name": name,
         "email": email,
       };
+
+    UserModel copyWith({
+    String? name,image,
+    }) => 
+    UserModel(
+        id: id,
+        name: name??this.name,
+        image: image??this.image,
+        email: email,
+    );
 }

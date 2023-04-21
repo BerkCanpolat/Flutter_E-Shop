@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_e_shop/constants/routes.dart';
 import 'package:flutter_e_shop/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:flutter_e_shop/provider/app_provider.dart';
+import 'package:flutter_e_shop/screens/edit_profile/edit_profile.dart';
 import 'package:flutter_e_shop/widgets/primary_button/primary_button.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +35,10 @@ class _AccountScreenState extends State<AccountScreen> {
               children: [
                 appProvider.getUserInformation.image == null ? Icon(
                   Icons.person_outline,size: 120,
-                  ) : Image.network(appProvider.getUserInformation.image!),
+                  ) : CircleAvatar(
+                    backgroundImage: NetworkImage(appProvider.getUserInformation.image!),
+                    radius: 70,
+                  ),
                 Text(
                   appProvider.getUserInformation.name!,
                   style: TextStyle(
@@ -45,7 +50,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 SizedBox(height: 12,),
                 PrimaryButton(
                   title: "Edit Profile",
-                  onPressed: (){},
+                  onPressed: (){
+                    Routes.instance.push(widget: EditProfile(), context: context);
+                  },
                   ),
               ],
             ),
@@ -82,6 +89,13 @@ class _AccountScreenState extends State<AccountScreen> {
                     },
                     leading: Icon(Icons.support_outlined),
                     title: Text("Support"),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      
+                    },
+                    leading: Icon(Icons.change_circle_outlined),
+                    title: Text("Change Password"),
                   ),
                   ListTile(
                     onTap: () {

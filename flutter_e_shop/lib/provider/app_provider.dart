@@ -10,6 +10,7 @@ import 'package:flutter_e_shop/models/user_model/user_model.dart';
 
 class AppProvider with ChangeNotifier {
   List<ProductModel> _cartProductList = [];
+  List<ProductModel> _buyProductList = [];
   UserModel? _userModel;
 
   UserModel get getUserInformation => _userModel!;
@@ -71,4 +72,25 @@ class AppProvider with ChangeNotifier {
     showMessage("Successfullt updated profile");
     notifyListeners();
   }
+
+  double totalPrice(){
+    double totalPrice = 0.0;
+    for(var element in _cartProductList){
+      totalPrice += element.price !* element.qty!;
+    }
+    return totalPrice;
+  }
+
+  void updateQty(ProductModel productModel,int qty){
+    int index = _cartProductList.indexOf(productModel);
+    _cartProductList[index].qty = qty;
+    notifyListeners();
+  }
+
+  void addBuyProduct(ProductModel model){
+    _buyProductList.add(model);
+    notifyListeners();
+  }
+
+  List<ProductModel> get getBuyProductsList => _buyProductList;
 }

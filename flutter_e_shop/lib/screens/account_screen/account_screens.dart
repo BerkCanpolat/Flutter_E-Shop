@@ -4,7 +4,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_e_shop/constants/routes.dart';
 import 'package:flutter_e_shop/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:flutter_e_shop/provider/app_provider.dart';
+import 'package:flutter_e_shop/screens/change_password/change_password.dart';
 import 'package:flutter_e_shop/screens/edit_profile/edit_profile.dart';
+import 'package:flutter_e_shop/screens/favourite_screen/favourite_screen.dart';
 import 'package:flutter_e_shop/widgets/primary_button/primary_button.dart';
 import 'package:provider/provider.dart';
 
@@ -71,7 +73,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   ListTile(
                     onTap: () {
-                      
+                      Routes.instance.push(widget: FavouriteScreen(), context: context);
                     },
                     leading: Icon(Icons.favorite_outline),
                     title: Text("Favourite"),
@@ -92,7 +94,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   ListTile(
                     onTap: () {
-                      
+                      Routes.instance.push(widget: ChangePassword(), context: context);
                     },
                     leading: Icon(Icons.change_circle_outlined),
                     title: Text("Change Password"),

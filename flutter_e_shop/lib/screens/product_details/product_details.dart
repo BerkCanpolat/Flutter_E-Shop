@@ -4,6 +4,7 @@ import 'package:flutter_e_shop/constants/constant.dart';
 import 'package:flutter_e_shop/constants/routes.dart';
 import 'package:flutter_e_shop/models/product_model/product_model.dart';
 import 'package:flutter_e_shop/provider/app_provider.dart';
+import 'package:flutter_e_shop/screens/check_out/check_out.dart';
 import 'package:flutter_e_shop/screens/cart_screen/cart_screen.dart';
 import 'package:flutter_e_shop/screens/favourite_screen/favourite_screen.dart';
 import 'package:provider/provider.dart';
@@ -116,7 +117,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                   width: 140,
                   child: ElevatedButton(
                     onPressed: (){
-                      Routes.instance.push(widget: FavouriteScreen(), context: context);
+                    ProductModel productModel = widget.singleProduct.copyWith(qty: qty);
+                    appProvider.addCardProduct(productModel);
+                      Routes.instance.push(widget: ChecktOut(singleProduct: productModel), context: context);
                     }, 
                     child: Text("BUY"),
                     ),

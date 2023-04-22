@@ -4,6 +4,7 @@ import 'package:flutter_e_shop/screens/account_screen/account_screens.dart';
 import 'package:flutter_e_shop/screens/cart_screen/cart_screen.dart';
 import 'package:flutter_e_shop/screens/favourite_screen/favourite_screen.dart';
 import 'package:flutter_e_shop/screens/home/home.dart';
+import 'package:flutter_e_shop/screens/order_screen/order_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class CustomBottomBar extends StatefulWidget {
@@ -22,7 +23,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   List<Widget> _buildScreens() => [
         Home(),
         CartScreen(),
-        FavouriteScreen(),
+        OrderScreen(),
         AccountScreen(),
       ];
 
@@ -42,9 +43,9 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           inactiveColorPrimary: Colors.white,
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.favorite),
-          inactiveIcon: Icon(Icons.favorite_border),
-          title: "Favourite",
+          icon: const Icon(Icons.circle),
+          inactiveIcon: Icon(Icons.circle_outlined),
+          title: "Orders",
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: Colors.white,
         ),

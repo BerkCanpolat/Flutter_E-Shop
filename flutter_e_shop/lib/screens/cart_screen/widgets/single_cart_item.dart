@@ -71,10 +71,11 @@ class _SingleCartItemsState extends State<SingleCartItems> {
                               children: [
                                 CupertinoButton(
                                   onPressed: () {
-                                    if (qty >= 1) {
+                                    if (qty > 1) {
                                       setState(() {
                                         qty--;
                                       });
+                                    appProvider.updateQty(widget.singleProduct, qty);
                                     }
                                   },
                                   padding: EdgeInsets.zero,
@@ -94,6 +95,7 @@ class _SingleCartItemsState extends State<SingleCartItems> {
                                     setState(() {
                                       qty++;
                                     });
+                                    appProvider.updateQty(widget.singleProduct, qty);
                                   },
                                   padding: EdgeInsets.zero,
                                   child: CircleAvatar(

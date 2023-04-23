@@ -39,7 +39,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Icons.person_outline,size: 120,
                   ) : CircleAvatar(
                     backgroundImage: NetworkImage(appProvider.getUserInformation.image!),
-                    radius: 70,
+                    radius: 50,
                   ),
                 Text(
                   appProvider.getUserInformation.name!,

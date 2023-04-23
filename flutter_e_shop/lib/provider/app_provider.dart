@@ -92,5 +92,22 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+
+  void addBuyProductCadList(){
+    _buyProductList.addAll(_cartProductList);
+    notifyListeners();
+  }
+
+
+  void clearCart(){
+    _cartProductList.clear();
+    notifyListeners();
+  }
+
+    void clearBuyProduct(){
+    _buyProductList.clear();
+    notifyListeners();
+  }
+
   List<ProductModel> get getBuyProductsList => _buyProductList;
 }

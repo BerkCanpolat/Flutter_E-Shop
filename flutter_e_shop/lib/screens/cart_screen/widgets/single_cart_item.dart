@@ -65,7 +65,7 @@ class _SingleCartItemsState extends State<SingleCartItems> {
                             Text(
                               widget.singleProduct.name!,
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold),
                             ),
                             Row(
                               children: [

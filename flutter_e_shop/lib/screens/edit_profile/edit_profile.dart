@@ -53,7 +53,7 @@ class _EditProfileState extends State<EditProfile> {
                     takePicture();
                   },
                   child: CircleAvatar(
-                    radius: 70,
+                    radius: 55,
                     child: Icon(Icons.camera_alt),
                   ),
                 )
@@ -63,7 +63,7 @@ class _EditProfileState extends State<EditProfile> {
                   },
                   child: CircleAvatar(
                     backgroundImage: FileImage(image!),
-                    radius: 70,
+                    radius: 55,
                   ),
                 ),
           SizedBox(

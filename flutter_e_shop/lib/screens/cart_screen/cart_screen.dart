@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_e_shop/constants/routes.dart';
 import 'package:flutter_e_shop/provider/app_provider.dart';
+import 'package:flutter_e_shop/screens/cart_items_check/cart_item_checkout.dart';
 import 'package:flutter_e_shop/screens/cart_screen/widgets/single_cart_item.dart';
 import 'package:flutter_e_shop/screens/check_out/check_out.dart';
 import 'package:flutter_e_shop/widgets/primary_button/primary_button.dart';
@@ -46,7 +47,10 @@ class _CartScreenState extends State<CartScreen> {
               ),
               SizedBox(height: 24,),
               PrimaryButton(title: "CheckOut",onPressed: (){
-                // Routes.instance.push(widget: ChecktOut(), context: context);
+                appProvider.clearBuyProduct();
+                appProvider.addBuyProductCadList();
+                appProvider.clearCart();
+                Routes.instance.push(widget: CartItemtOut(), context: context);
               },)
             ],
           ),

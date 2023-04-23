@@ -11,15 +11,14 @@ import 'package:provider/provider.dart';
 
 import '../../provider/app_provider.dart';
 
-class ChecktOut extends StatefulWidget {
-  final ProductModel singleProduct;
-  const ChecktOut({super.key, required this.singleProduct});
+class CartItemtOut extends StatefulWidget {
+  const CartItemtOut({super.key,});
 
   @override
-  State<ChecktOut> createState() => _ChecktOutState();
+  State<CartItemtOut> createState() => _CartItemtOutState();
 }
 
-class _ChecktOutState extends State<ChecktOut> {
+class _CartItemtOutState extends State<CartItemtOut> {
   int groupValue = 1;
   @override
   Widget build(BuildContext context) {
@@ -114,11 +113,11 @@ class _ChecktOutState extends State<ChecktOut> {
             PrimaryButton(
               title: "Continues",
               onPressed: () async {
-                appProvider.clearBuyProduct();
-                appProvider.addBuyProduct(widget.singleProduct);
                 bool value = await FirebaseFirestoreHelper.instance
                     .uploadOrderedProductFirebase(
                         appProvider.getBuyProductsList, context,groupValue==1?"Cash On Delivery":"Paid");
+
+                        appProvider.clearBuyProduct();
                 if(value){
                   Future.delayed(Duration(seconds: 2), (){
                     Routes.instance.push(widget: CustomBottomBar(), context: context);
